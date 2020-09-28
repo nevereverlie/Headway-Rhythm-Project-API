@@ -1,2 +1,2 @@
 # Headway-Rhythm-Project-API
-Audio app built with Angular 8 and .Net Core 3
+Backend for HRP audio app built with .Net Core 3
