@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Headway_Rhythm_Project_API.Data;
+using Headway_Rhythm_Project_API.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,6 +30,7 @@ namespace Headway_Rhythm_Project_API
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
+            services.AddScoped<ITracksRepository, TracksRepository>();
             services.AddControllers();
         }
 
