@@ -31,6 +31,7 @@ namespace Headway_Rhythm_Project_API
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
+            services.AddCors();
             services.AddControllers();
         }
 
@@ -45,6 +46,8 @@ namespace Headway_Rhythm_Project_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 
