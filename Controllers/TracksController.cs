@@ -16,6 +16,9 @@ namespace Headway_Rhythm_Project_API.Controllers
             _repo = repo;
         }
 
+        /// <summmary>
+        /// Returns all track from database
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetTracks()
         {

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Headway-Rhythm-Project-API</name>
+    </assembly>
+    <members>
+        <!-- Badly formed XML comment ignored for member "M:Headway_Rhythm_Project_API.Controllers.TracksController.GetTracks" -->
+    </members>
+</doc>

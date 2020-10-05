@@ -59,3 +59,10 @@ C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_
 C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
 C:\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\Headway-Rhythm-Project-API.csproj.CopyComplete
 C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\Headway-Rhythm-Project-API.MvcApplicationPartsAssemblyInfo.cs
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Headway-Rhythm-Project-API.xml
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\Headway-Rhythm-Project-API.xml
