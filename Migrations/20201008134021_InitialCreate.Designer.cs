@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Headway_Rhythm_Project_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201008000213_InitialCreate")]
+    [Migration("20201008134021_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Headway_Rhythm_Project_API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("GenreName")
                         .HasColumnType("TEXT");
 
                     b.HasKey("GenreId");
@@ -82,7 +82,7 @@ namespace Headway_Rhythm_Project_API.Migrations
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.TrackGenres", b =>
                 {
                     b.HasOne("Headway_Rhythm_Project_API.Models.Genre", "Genre")
-                        .WithMany("Genres")
+                        .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -1412,25 +1412,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nazar\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
+      "projectUniqueName": "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
       "projectName": "Headway-Rhythm-Project-API",
-      "projectPath": "c:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
-      "packagesPath": "C:\\Users\\nazar\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\obj\\",
+      "projectPath": "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Headway-Rhythm-Project-API\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\nazar\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
