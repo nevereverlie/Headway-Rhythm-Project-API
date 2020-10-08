@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Headway_Rhythm_Project_API.Data.Migrations
+namespace Headway_Rhythm_Project_API.Migrations
 {
     public partial class InitialCreate : Migration
     {
@@ -25,10 +26,11 @@ namespace Headway_Rhythm_Project_API.Data.Migrations
                 {
                     TrackId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true),
-                    Artist = table.Column<string>(nullable: true),
-                    Album = table.Column<string>(nullable: true),
-                    Duration = table.Column<int>(nullable: false)
+                    TrackName = table.Column<string>(nullable: true),
+                    PerformerName = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    PublicId = table.Column<string>(nullable: true),
+                    DateAdded = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {

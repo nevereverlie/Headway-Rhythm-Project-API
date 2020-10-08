@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj": {}
+    "C:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj": {}
   },
   "projects": {
-    "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj": {
+    "C:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
+        "projectUniqueName": "C:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
         "projectName": "Headway-Rhythm-Project-API",
-        "projectPath": "C:\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Headway-Rhythm-Project-API\\obj\\",
+        "projectPath": "C:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\Headway-Rhythm-Project-API.csproj",
+        "packagesPath": "C:\\Users\\nazar\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nazar\\Desktop\\Headway-Rhythm-Project-API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\nazar\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -41,6 +42,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.11.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.8, )"

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Headway_Rhythm_Project_API.Data;
 using Headway_Rhythm_Project_API.Interfaces;
+using Headway_Rhythm_Project_API.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,10 +31,12 @@ namespace Headway_Rhythm_Project_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
             services.AddDbContext<DataContext>(options => {
                 options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
+            services.AddScoped<IAppRepository, AppRepository>();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
