@@ -13,7 +13,7 @@ namespace Headway_Rhythm_Project_API.Migrations
                 {
                     GenreId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(nullable: true)
+                    GenreName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

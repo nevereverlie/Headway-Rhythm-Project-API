@@ -136,3 +136,5 @@ C:\Users\nazar\Desktop\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\Headwa
 C:\Users\nazar\Desktop\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\staticwebassets\Headway-Rhythm-Project-API.StaticWebAssets.Manifest.cache
 C:\Users\nazar\Desktop\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\staticwebassets\Headway-Rhythm-Project-API.StaticWebAssets.xml
 C:\Users\nazar\Desktop\Headway-Rhythm-Project-API\obj\Debug\netcoreapp3.1\Headway-Rhythm-Project-API.genruntimeconfig.cache
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\CloudinaryDotNet.dll
+C:\Headway-Rhythm-Project-API\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll

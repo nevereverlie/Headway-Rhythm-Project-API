@@ -37,6 +37,7 @@ namespace Headway_Rhythm_Project_API
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
