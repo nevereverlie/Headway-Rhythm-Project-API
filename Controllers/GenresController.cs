@@ -46,12 +46,11 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
         
         [HttpDelete]
-        [Route("delete")]
-        public async Task<IActionResult> DeleteGenre(Genre genre)
+        [Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteGenre(int id)
         {
-            var genreToDelete = new Genre
-            {
-                GenreId = genre.GenreId
+            var genreToDelete = new Genre {
+                GenreId = id
             };
 
             _crudRepo.Delete(genreToDelete);
