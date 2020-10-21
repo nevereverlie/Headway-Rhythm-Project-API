@@ -39,7 +39,9 @@ namespace Headway_Rhythm_Project_API
             services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

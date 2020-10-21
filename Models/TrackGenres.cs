@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Headway_Rhythm_Project_API.Models
 {
     public class TrackGenres

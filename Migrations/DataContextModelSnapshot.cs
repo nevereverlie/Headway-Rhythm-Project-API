@@ -68,6 +68,9 @@ namespace Headway_Rhythm_Project_API.Migrations
                     b.Property<int>("TrackId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("TrackName")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("TrackGenresId");
 
                     b.HasIndex("GenreId");
@@ -80,13 +83,13 @@ namespace Headway_Rhythm_Project_API.Migrations
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.TrackGenres", b =>
                 {
                     b.HasOne("Headway_Rhythm_Project_API.Models.Genre", "Genre")
-                        .WithMany()
+                        .WithMany("TrackGenres")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Headway_Rhythm_Project_API.Models.Track", "Track")
-                        .WithMany("Genres")
+                        .WithMany("TrackGenres")
                         .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
