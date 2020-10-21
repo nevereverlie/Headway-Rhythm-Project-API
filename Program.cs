@@ -20,7 +20,11 @@ namespace Headway_Rhythm_Project_API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    //resolving Heroku ports problem
+                    var port = Environment.GetEnvironmentVariable("PORT");
+
+                    webBuilder.UseStartup<Startup>()
+                        .UseUrls("http://*:" + port);
                 });
     }
 }
