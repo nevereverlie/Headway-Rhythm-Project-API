@@ -60,7 +60,7 @@ namespace Headway_Rhythm_Project_API.Data
 
         public async Task<List<Track>> GetTracks()
         {
-            return await _context.Tracks.ToListAsync();
+            return await _context.Tracks.Include(tg => tg.TrackGenres).ToListAsync();
         }
     }
 }

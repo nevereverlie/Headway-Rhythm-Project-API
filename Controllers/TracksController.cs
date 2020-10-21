@@ -79,7 +79,14 @@ namespace Headway_Rhythm_Project_API.Controllers
             }
 
             trackForCreation.TrackGenres = trackGenres;
-            
+
+            foreach (TrackGenres tGenre in trackForCreation.TrackGenres)
+            {
+                tGenre.Genre = await _context.Genres.FirstOrDefaultAsync(genre => genre.GenreId == tGenre.GenreId);
+            }
+
+            _apprepo.Add(trackForCreation);
+
             if(await _apprepo.SaveAll()){
                 return Ok(trackForCreation);
             }

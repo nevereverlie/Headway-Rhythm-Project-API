@@ -6,8 +6,8 @@ namespace Headway_Rhythm_Project_API.Models
     {
         public int TrackGenresId { get; set; }
         public int TrackId { get; set; }
-        public Track Track { get; set; }
+        public virtual Track Track { get; set; }
         public int GenreId { get; set; }
-        public Genre Genre { get; set; }
+        public virtual Genre Genre { get; set; }
     }
 }

@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Headway_Rhythm_Project_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20201021161721_i")]
+    [Migration("20201021203249_i")]
     partial class i
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8");
+                .HasAnnotation("ProductVersion", "3.1.9");
 
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.Genre", b =>
                 {

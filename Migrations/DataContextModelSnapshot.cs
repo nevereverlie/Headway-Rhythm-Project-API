@@ -14,7 +14,7 @@ namespace Headway_Rhythm_Project_API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.8");
+                .HasAnnotation("ProductVersion", "3.1.9");
 
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.Genre", b =>
                 {
@@ -67,9 +67,6 @@ namespace Headway_Rhythm_Project_API.Migrations
 
                     b.Property<int>("TrackId")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("TrackName")
-                        .HasColumnType("TEXT");
 
                     b.HasKey("TrackGenresId");
 

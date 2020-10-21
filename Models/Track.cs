@@ -11,6 +11,6 @@ namespace Headway_Rhythm_Project_API.Models
         public string Url { get; set; }
         public string PublicId { get; set; }
         public DateTime DateAdded { get; set; }
-        public ICollection<TrackGenres> TrackGenres { get; set; }
+        public virtual ICollection<TrackGenres> TrackGenres { get; set; }
     }
 }
