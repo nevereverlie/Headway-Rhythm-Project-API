@@ -16,13 +16,11 @@ namespace Headway_Rhythm_Project_API.Controllers
     {
         private readonly ITracksRepository _repo;
         private readonly IAppRepository _apprepo;
-        private readonly DataContext _context;
         public TracksController(ITracksRepository repo,
-            IAppRepository apprepo, DataContext context)
+            IAppRepository apprepo)
         {
             _repo = repo;
             _apprepo = apprepo;
-            _context = context;
         }
 
         /// <summary>

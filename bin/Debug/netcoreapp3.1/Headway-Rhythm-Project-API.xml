@@ -14,5 +14,15 @@
             Returns a specific track from database by Id
             </summary>
         </member>
+        <member name="M:Headway_Rhythm_Project_API.Controllers.UserController.GetUsers">
+            <summary>
+            Returns all users from database
+            </summary>
+        </member>
+        <member name="M:Headway_Rhythm_Project_API.Controllers.UserController.GetUserById(System.Int32)">
+            <summary>
+            Returns exact user from database
+            </summary>
+        </member>
     </members>
 </doc>
