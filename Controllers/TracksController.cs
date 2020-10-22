@@ -47,7 +47,7 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadTrack(IFormFile file)
+        public async Task<IActionResult> UploadTrack(IFormFile file, [FromForm]string trackName, [FromForm]string performerName)
         {
             var result = await _repo.AddTrackAsync(file);
 
@@ -56,8 +56,8 @@ namespace Headway_Rhythm_Project_API.Controllers
             //var tracks = _context.Tracks;
             var trackForCreation = new Track
             {
-                TrackName = "temp_name",
-                PerformerName = "temp_p_name",
+                TrackName = trackName,
+                PerformerName = performerName,
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId
             };
