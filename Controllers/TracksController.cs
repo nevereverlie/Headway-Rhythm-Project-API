@@ -18,10 +18,14 @@ namespace Headway_Rhythm_Project_API.Controllers
     {
         private readonly ITracksRepository _repo;
         private readonly IAppRepository _apprepo;
+
+        private readonly IGenresRepository _genreRepo;
         public TracksController(ITracksRepository repo,
+            IGenresRepository genresRepository,
             IAppRepository apprepo)
         {
             _repo = repo;
+            _genreRepo = genresRepository;
             _apprepo = apprepo;
         }
 
@@ -49,7 +53,7 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadTrack(IFormFile file, [FromForm]string trackName, [FromForm]string performerName, [FromForm]List<Genre> genres)
+        public async Task<IActionResult> UploadTrack(IFormFile file, [FromForm]string trackName, [FromForm]string performerName, [FromForm]int year, [FromForm]List<Genre> genres)
         {
             var result = await _repo.AddTrackAsync(file);
 
@@ -59,6 +63,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             {
                 TrackName = trackName,
                 PerformerName = performerName,
+                TrackYear = year,
                 Url = result.SecureUrl.AbsoluteUri,
                 PublicId = result.PublicId,
                 DateAdded = System.DateTime.Now.Date
@@ -80,7 +85,7 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             foreach (TrackGenres tGenre in trackForCreation.TrackGenres)
             {
-                tGenre.Genre = await _context.Genres.FirstOrDefaultAsync(genre => genre.GenreId == tGenre.GenreId);
+                tGenre.Genre = await _genreRepo.GetGenreById(tGenre.GenreId);
             }
 
             _apprepo.Add(trackForCreation);

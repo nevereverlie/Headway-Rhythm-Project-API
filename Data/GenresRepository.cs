@@ -15,6 +15,11 @@ namespace Headway_Rhythm_Project_API.Data
             _context = context;
         }
 
+        public async Task<Genre> GetGenreById(int genreId)
+        {
+            return await _context.Genres.FirstOrDefaultAsync(g => g.GenreId == genreId);
+        }
+
         public async Task<List<Genre>> GetGenres()
         {
             return await _context.Genres.ToListAsync();

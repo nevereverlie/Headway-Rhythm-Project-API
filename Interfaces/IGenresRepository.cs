@@ -7,5 +7,6 @@ namespace Headway_Rhythm_Project_API.Interfaces
     public interface IGenresRepository
     {
          Task<List<Genre>> GetGenres();
+         Task<Genre> GetGenreById(int genreId);
     }
 }
