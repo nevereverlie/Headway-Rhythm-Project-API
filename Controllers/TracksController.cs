@@ -69,5 +69,19 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return BadRequest("problem adding track");
         }
+
+        [HttpGet]
+        [Route("search/{searchString}")]
+        public async Task<IActionResult> GetTracksBySearchString(string searchString)
+        {
+            var tracks = await _repo.GetTracksBySearchString(searchString);
+            
+            List<Track> tracksToReturn = new List<Track>();
+            for (int i = 0; i < tracks.Count; i++)
+            {
+                tracksToReturn.Add(tracks[i]);
+            }
+            return Ok(tracksToReturn);
+        }
     }
 }

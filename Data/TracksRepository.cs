@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
@@ -61,6 +62,14 @@ namespace Headway_Rhythm_Project_API.Data
         public async Task<List<Track>> GetTracks()
         {
             return await _context.Tracks.ToListAsync();
+        }
+
+        public async Task<List<Track>> GetTracksBySearchString(string searchString)
+        {
+            var tracks = await _context.Tracks.Where(t => t.PerformerName.Contains(searchString) || 
+                t.TrackName.Contains(searchString)).ToListAsync();
+            
+            return tracks;
         }
     }
 }

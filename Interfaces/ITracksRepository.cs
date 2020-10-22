@@ -13,5 +13,6 @@ namespace Headway_Rhythm_Project_API.Interfaces
         Task<List<Track>> GetTracks();
         Task<VideoUploadResult> AddTrackAsync(IFormFile file);
         Task<DeletionResult> DeleteTrackAsync(string publicId);
+        Task<List<Track>> GetTracksBySearchString(string searchString);
     }
 }
