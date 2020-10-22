@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Headway_Rhythm_Project_API.Data;
 using Headway_Rhythm_Project_API.Interfaces;
@@ -16,10 +18,14 @@ namespace Headway_Rhythm_Project_API.Controllers
     {
         private readonly ITracksRepository _repo;
         private readonly IAppRepository _apprepo;
+
+        private readonly IGenresRepository _genreRepo;
         public TracksController(ITracksRepository repo,
+            IGenresRepository genresRepository,
             IAppRepository apprepo)
         {
             _repo = repo;
+            _genreRepo = genresRepository;
             _apprepo = apprepo;
         }
 
@@ -47,22 +53,43 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadTrack(IFormFile file, [FromForm]string trackName, [FromForm]string performerName)
+        public async Task<IActionResult> UploadTrack(IFormFile file, [FromForm]string trackName, [FromForm]string performerName, [FromForm]int year, [FromForm]List<Genre> genres)
         {
             var result = await _repo.AddTrackAsync(file);
 
-            if(result.Error != null) return BadRequest(result.Error.Message);
+            if(result.Error != null) return BadRequest(result.Error.Message);       
 
-            //var tracks = _context.Tracks;
             var trackForCreation = new Track
             {
                 TrackName = trackName,
                 PerformerName = performerName,
+                TrackYear = year,
                 Url = result.SecureUrl.AbsoluteUri,
-                PublicId = result.PublicId
+                PublicId = result.PublicId,
+                DateAdded = System.DateTime.Now.Date
             };
+
             _apprepo.Add(trackForCreation);
             
+            List<TrackGenres> trackGenres = new List<TrackGenres>();
+            foreach (Genre genre in genres)
+            {
+                TrackGenres trackGenresToAdd = new TrackGenres {
+                    GenreId = genre.GenreId,
+                    TrackId = trackForCreation.TrackId
+                };
+                trackGenres.Add(trackGenresToAdd);
+            }
+
+            trackForCreation.TrackGenres = trackGenres;
+
+            foreach (TrackGenres tGenre in trackForCreation.TrackGenres)
+            {
+                tGenre.Genre = await _genreRepo.GetGenreById(tGenre.GenreId);
+            }
+
+            _apprepo.Add(trackForCreation);
+
             if(await _apprepo.SaveAll()){
                 return Ok(trackForCreation);
             }

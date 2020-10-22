@@ -33,14 +33,16 @@ namespace Headway_Rhythm_Project_API
         {
             services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
             services.AddDbContext<DataContext>(options => {
-                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                options.UseLazyLoadingProxies().UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
             services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
