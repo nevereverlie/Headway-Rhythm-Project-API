@@ -24,7 +24,7 @@ namespace Headway_Rhythm_Project_API
                     var port = Environment.GetEnvironmentVariable("PORT");
 
                     webBuilder.UseStartup<Startup>()
-                        .UseUrls("http://*:" + port);
+                        .UseUrls("http://*:5001" + port);
                 });
     }
 }

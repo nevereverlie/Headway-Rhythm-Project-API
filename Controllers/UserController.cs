@@ -40,7 +40,7 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
         [HttpPost]
         [Route("upload")]
-        public async Task<IActionResult> UploadPhoto(int userId, IFormFile file)
+        public async Task<IActionResult> UploadPhoto([FromForm]int userId, IFormFile file)
         {
             var result = await _repo.AddPhotoAsync(file);
 
