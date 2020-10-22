@@ -3,18 +3,20 @@ using System;
 using Headway_Rhythm_Project_API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Headway_Rhythm_Project_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201021155804_UserMigration")]
+    partial class UserMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9");
+                .HasAnnotation("ProductVersion", "3.1.8");
 
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.Genre", b =>
                 {
@@ -86,12 +88,6 @@ namespace Headway_Rhythm_Project_API.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PhotoUrl")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("PublicId")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Username")
                         .HasColumnType("TEXT");
 
@@ -103,13 +99,13 @@ namespace Headway_Rhythm_Project_API.Migrations
             modelBuilder.Entity("Headway_Rhythm_Project_API.Models.TrackGenres", b =>
                 {
                     b.HasOne("Headway_Rhythm_Project_API.Models.Genre", "Genre")
-                        .WithMany("TrackGenres")
+                        .WithMany()
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Headway_Rhythm_Project_API.Models.Track", "Track")
-                        .WithMany("TrackGenres")
+                        .WithMany("Genres")
                         .HasForeignKey("TrackId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
