@@ -39,23 +39,37 @@ namespace Headway_Rhythm_Project_API.Controllers
             return Ok(userToReturn);
         }
         [HttpPost]
-        [Route("upload")]
-        public async Task<IActionResult> UploadPhoto([FromForm]int userId, IFormFile file)
+        [Route("update")]
+        public async Task<IActionResult> UpdateProfile([FromForm]int userId, [FromForm]string Username,
+            [FromForm]string Description, IFormFile file)
         {
-            var result = await _repo.AddPhotoAsync(file);
+            var userForUpdate = await _repo.GetUserById(userId);
+            if(userForUpdate == null)
+                return BadRequest("User does not exist");
+            
+            if(userForUpdate.Username == Username && userForUpdate.Description == Description && file == null)
+                return Ok(userForUpdate);
 
-            if(result.Error != null) return BadRequest(result.Error.Message);
+            userForUpdate.Username = Username;
+            userForUpdate.Description = Description;
 
-            var userForPhoto = await _repo.GetUserById(userId);
 
-            userForPhoto.PhotoUrl = result.SecureUrl.AbsoluteUri;
-            userForPhoto.PublicId = result.PublicId;
+            // if(file == null) return BadRequest("file = null");
+            if(file != null){
+                var result = await _repo.AddPhotoAsync(file);
+
+                if(result.Error != null) return BadRequest(result.Error.Message);
+
+                userForUpdate.PhotoUrl = result.SecureUrl.AbsoluteUri;
+                userForUpdate.PublicId = result.PublicId;
+            }
             
             if(await _apprepo.SaveAll()){
-                return Ok(userForPhoto);
+                return Ok(userForUpdate);
             }
 
-            return BadRequest("problem adding photo");
+
+            return BadRequest("Problem updating profile");
         }
     }
 }
