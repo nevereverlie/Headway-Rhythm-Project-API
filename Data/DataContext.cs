@@ -11,5 +11,6 @@ namespace Headway_Rhythm_Project_API.Data
 
         public DbSet<Track> Tracks { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
