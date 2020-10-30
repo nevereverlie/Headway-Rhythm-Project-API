@@ -7,5 +7,7 @@ namespace Headway_Rhythm_Project_API.Models
         public string Description { get; set; }
         public string PhotoUrl { get; set; }
         public string PublicId { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
     }
 }
