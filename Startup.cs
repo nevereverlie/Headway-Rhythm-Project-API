@@ -39,6 +39,7 @@ namespace Headway_Rhythm_Project_API
             services.AddScoped<IAppRepository, AppRepository>();
             services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddCors();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
