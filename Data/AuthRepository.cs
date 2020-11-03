@@ -74,5 +74,32 @@ namespace Headway_Rhythm_Project_API.Data
                 return true;
             }
         }
+
+        public async Task<GoogleUser> RegisterGoogleUser(GoogleUser googleUser)
+        {
+            await _context.GoogleUsers.AddAsync(googleUser);
+            await _context.SaveChangesAsync();
+
+            return googleUser;
+        }
+
+        public async Task<bool> GoogleUserExists(string email)
+        {
+            if(await _context.GoogleUsers.AnyAsync(u => u.Email == email))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<GoogleUser> LoginGoogleUser(string email)
+        {
+            var user = await _context.GoogleUsers.FirstOrDefaultAsync(x => x.Email == email);
+
+            if (user == null)
+                return null;
+
+            return user;
+        }
     }
 }
