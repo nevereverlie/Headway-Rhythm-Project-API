@@ -1,4 +1,7 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +14,15 @@ namespace Headway_Rhythm_Project_API.Controllers
     {
         private readonly IUserRepository _repo;
         private readonly IAppRepository _apprepo;
-        public UserController(IUserRepository repo, IAppRepository apprepo)
+
+        private readonly IMapper _mapper;
+        public UserController(IUserRepository repo,
+                              IAppRepository apprepo,
+                              IMapper mapper)
         {
             _repo = repo;
             _apprepo = apprepo;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -23,7 +31,9 @@ namespace Headway_Rhythm_Project_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var usersToReturn = await _repo.GetUsers();
+            var users = await _repo.GetUsers();
+
+            var usersToReturn = _mapper.Map<IEnumerable<UserProfileDto>>(users);
 
             return Ok(usersToReturn);
         }
@@ -34,7 +44,9 @@ namespace Headway_Rhythm_Project_API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var userToReturn = await _repo.GetUserById(id);
+            var user = await _repo.GetUserById(id);
+
+            var userToReturn = _mapper.Map<UserProfileDto>(user);
 
             return Ok(userToReturn);
         }
