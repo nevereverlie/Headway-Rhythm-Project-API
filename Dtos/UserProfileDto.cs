@@ -6,5 +6,6 @@ namespace Headway_Rhythm_Project_API.Dtos
         public string Username { get; set; }
         public string Description { get; set; }
         public string PhotoUrl { get; set; }
+        public string PublicId { get; set; }
     }
 }

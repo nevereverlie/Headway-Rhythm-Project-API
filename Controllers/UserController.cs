@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Interfaces;
+using Headway_Rhythm_Project_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,6 +57,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             [FromForm]string Description, IFormFile file)
         {
             var userForUpdate = await _repo.GetUserById(userId);
+
             if(userForUpdate == null)
                 return BadRequest("User does not exist");
             
@@ -65,8 +67,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             userForUpdate.Username = Username;
             userForUpdate.Description = Description;
 
-
-            // if(file == null) return BadRequest("file = null");
             if(file != null){
                 var result = await _repo.AddPhotoAsync(file);
 
@@ -77,11 +77,28 @@ namespace Headway_Rhythm_Project_API.Controllers
             }
             
             if(await _apprepo.SaveAll()){
-                return Ok(userForUpdate);
+                var userToReturn = _mapper.Map<UserProfileDto>(userForUpdate);
+                return Ok(userToReturn);
             }
 
-
             return BadRequest("Problem updating profile");
+        }
+
+        [HttpDelete]
+        [Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteProfile(int id)
+        {
+            var userToDelete = new User
+            {
+                UserId = id
+            };
+
+            _apprepo.Delete(userToDelete);
+
+            if (await _apprepo.SaveAll())
+                return Ok("User with ID: " + id + " deleted");
+
+            return BadRequest("Problem deleting this user");
         }
     }
 }

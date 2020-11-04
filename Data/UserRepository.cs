@@ -53,9 +53,7 @@ namespace Headway_Rhythm_Project_API.Data
                     uploadResult = await _cloudinary.UploadAsync(uploadParams);
                 }
             }
-
             return uploadResult;
-
         }
     }
 }
