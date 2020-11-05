@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using System.Reflection;
 using System.IO;
 using Microsoft.OpenApi.Models;
+using AutoMapper;
 
 namespace Headway_Rhythm_Project_API
 {
@@ -40,6 +41,7 @@ namespace Headway_Rhythm_Project_API
             services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.AddCors();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

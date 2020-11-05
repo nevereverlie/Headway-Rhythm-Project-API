@@ -78,6 +78,7 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(new
             {
+                userFromRepo.UserId,
                 token = tokenHandler.WriteToken(token)
             });
         }

@@ -1,5 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
+using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Interfaces;
+using Headway_Rhythm_Project_API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +15,15 @@ namespace Headway_Rhythm_Project_API.Controllers
     {
         private readonly IUserRepository _repo;
         private readonly IAppRepository _apprepo;
-        public UserController(IUserRepository repo, IAppRepository apprepo)
+
+        private readonly IMapper _mapper;
+        public UserController(IUserRepository repo,
+                              IAppRepository apprepo,
+                              IMapper mapper)
         {
             _repo = repo;
             _apprepo = apprepo;
+            _mapper = mapper;
         }
 
         /// <summary>
@@ -23,7 +32,9 @@ namespace Headway_Rhythm_Project_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var usersToReturn = await _repo.GetUsers();
+            var users = await _repo.GetUsers();
+
+            var usersToReturn = _mapper.Map<IEnumerable<UserProfileDto>>(users);
 
             return Ok(usersToReturn);
         }
@@ -34,16 +45,19 @@ namespace Headway_Rhythm_Project_API.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var userToReturn = await _repo.GetUserById(id);
+            var user = await _repo.GetUserById(id);
+
+            var userToReturn = _mapper.Map<UserProfileDto>(user);
 
             return Ok(userToReturn);
         }
-        [HttpPost]
+        [HttpPut]
         [Route("update")]
         public async Task<IActionResult> UpdateProfile([FromForm]int userId, [FromForm]string Username,
             [FromForm]string Description, IFormFile file)
         {
             var userForUpdate = await _repo.GetUserById(userId);
+
             if(userForUpdate == null)
                 return BadRequest("User does not exist");
             
@@ -53,8 +67,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             userForUpdate.Username = Username;
             userForUpdate.Description = Description;
 
-
-            // if(file == null) return BadRequest("file = null");
             if(file != null){
                 var result = await _repo.AddPhotoAsync(file);
 
@@ -65,11 +77,28 @@ namespace Headway_Rhythm_Project_API.Controllers
             }
             
             if(await _apprepo.SaveAll()){
-                return Ok(userForUpdate);
+                var userToReturn = _mapper.Map<UserProfileDto>(userForUpdate);
+                return Ok(userToReturn);
             }
 
-
             return BadRequest("Problem updating profile");
+        }
+
+        [HttpDelete]
+        [Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteProfile(int id)
+        {
+            var userToDelete = new User
+            {
+                UserId = id
+            };
+
+            _apprepo.Delete(userToDelete);
+
+            if (await _apprepo.SaveAll())
+                return Ok(userToDelete);
+
+            return BadRequest("Problem deleting this user");
         }
     }
 }
