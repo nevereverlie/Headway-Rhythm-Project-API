@@ -51,7 +51,7 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(userToReturn);
         }
-        [HttpPost]
+        [HttpPut]
         [Route("update")]
         public async Task<IActionResult> UpdateProfile([FromForm]int userId, [FromForm]string Username,
             [FromForm]string Description, IFormFile file)
@@ -96,7 +96,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             _apprepo.Delete(userToDelete);
 
             if (await _apprepo.SaveAll())
-                return Ok("User with ID: " + id + " deleted");
+                return Ok(userToDelete);
 
             return BadRequest("Problem deleting this user");
         }
