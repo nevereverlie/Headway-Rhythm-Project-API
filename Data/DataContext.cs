@@ -13,6 +13,7 @@ namespace Headway_Rhythm_Project_API.Data
         public DbSet<Genre> Genres { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<GoogleUser> GoogleUsers { get; set; }
+        public DbSet<TrackGenres> TrackGenres { get; set; }
         public DbSet<Playlist> Playlists { get; set; }
         public DbSet<PlaylistTrack> PlaylistTracks { get; set; }
         public DbSet<UserPlaylist> UserPlaylists { get; set; }
