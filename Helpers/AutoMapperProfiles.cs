@@ -9,6 +9,7 @@ namespace Headway_Rhythm_Project_API.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<User, UserProfileDto>();
+            CreateMap<Track, TrackForReturnDto>();
         }
     }
 }
