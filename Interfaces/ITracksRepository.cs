@@ -12,7 +12,6 @@ namespace Headway_Rhythm_Project_API.Interfaces
 
         Task<Track> GetTrackById(int TrackId);
         Task<Track> GetTrackByName(string TrackName);
-        // Task<List<Track>> GetTracks();
         Task<List<TrackForReturnDto>> GetTracks();
         Task<VideoUploadResult> AddTrackAsync(IFormFile file);
         Task<List<Track>> GetTracksBySearchString(string searchString);
