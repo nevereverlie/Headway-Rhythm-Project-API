@@ -92,5 +92,92 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(tracksOfPlaylist);
         }
+        [Authorize]
+        [HttpGet]
+        [Route("get-common-playlists")]
+        public async Task<IActionResult> GetCommonPlaylists()
+        {
+            var commonPlaylists = await _playlistrepo.GetCommonPlaylists();
+
+            return Ok(commonPlaylists);
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("get-common-playlist/{cpId:int}")]
+        public async Task<IActionResult> GetCommonPlaylist(int cpId)
+        {
+            var commonPlaylist = await _playlistrepo.GetCommonPlaylist(cpId);
+
+            return Ok(commonPlaylist);
+        }
+        [Authorize]
+        [HttpGet]
+        [Route("get-common-playlist-tracks/{cpId:int}")]
+        public async Task<IActionResult> GetCommonPlaylistTracks(int cpId)
+        {
+            var tracks = await _playlistrepo.GetCommonPlaylistTracks(cpId);
+
+            return Ok(tracks);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("create-common-playlist")]
+        public async Task<IActionResult> CreateCommonPlaylist([FromBody]CommonPlaylist commonPlaylist)
+        {
+            _apprepo.Add(commonPlaylist);
+
+            if (await _apprepo.SaveAll())
+                return Ok("Common playlist '" + commonPlaylist.CommonPlaylistName + "' created!");
+            
+            return BadRequest("Problem creating common playlist...");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [Route("add-track-to-common-playlist")]
+        public async Task<IActionResult> AddTrackToCommonPlaylist([FromBody]CommonPlaylistTrack commonPlaylistTrack)
+        {
+            _apprepo.Add(commonPlaylistTrack);
+
+            if (await _apprepo.SaveAll())
+                return Ok(200);
+            
+            return BadRequest("Problem adding track to common playlist...");
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("update-common-playlist/{cpId:int}")]
+        public async Task<IActionResult> UpdateCommonPlaylist(int cpId, [FromBody]CommonPlaylist commonPlaylist)
+        {
+            var cpToUpdate = await _playlistrepo.GetCommonPlaylist(cpId);
+
+            cpToUpdate.CommonPlaylistName = commonPlaylist.CommonPlaylistName;
+            cpToUpdate.CommonPlaylistTracks = commonPlaylist.CommonPlaylistTracks;
+
+            _apprepo.Update(cpToUpdate);
+
+            if (await _apprepo.SaveAll())
+                return Ok(cpToUpdate);
+            
+            return BadRequest("Problem updating common playlist...");
+        }
+
+        [Authorize]
+        [HttpDelete]
+        [Route("delete-common-playlist/{cpId:int}")]
+        public async Task<IActionResult> DeleteCommonPlaylist(int cpId)
+        {
+            var cpToDelete = await _playlistrepo.GetCommonPlaylist(cpId);
+
+            _apprepo.Delete(cpToDelete);
+
+            if (await _apprepo.SaveAll())
+                return Ok("Common playlist with ID " + cpId + " deleted!");
+            
+            return BadRequest("Problem deleting common playlist...");
+        }
+
     }
 }
