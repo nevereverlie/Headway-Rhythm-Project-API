@@ -113,13 +113,25 @@ namespace Headway_Rhythm_Project_API.Controllers
                 newGenres[i] = newGenres[i].TrimStart();
             }
 
-            List<TrackGenres> trackGenres = await _repo.GetTrackGenresById(track.TrackId);
-            List<string> trackGenresNames = await _repo.GetTrackGenresByName(track.TrackId);
-
+            //List<TrackGenres> trackGenres = await _repo.GetTrackGenresById(track.TrackId);
+            //List<string> trackGenresNames = await _repo.GetTrackGenresByName(track.TrackId);
+            //List<TrackGenres> newTG = await _genreRepo.GetTrackGenres(newGenres, track.TrackId);
+            List<int> genresIds = await _genreRepo.GetGenresIds(newGenres);
+            List<TrackGenres> trackGenres = new List<TrackGenres>();
+            foreach (var genreId in genresIds)
+            {
+                var tgToAdd = new TrackGenres
+                {
+                    TrackId = track.TrackId,
+                    GenreId = genreId
+                };
+                trackGenres.Add(tgToAdd);
+            }
 
             track.TrackName = trackForUpdate.TrackName;
             track.PerformerName = trackForUpdate.PerformerName;
             track.TrackYear = trackForUpdate.TrackYear;
+            track.TrackGenres.Clear();
 
             for (int i = 0; i < trackGenres.Count; i++)
             {

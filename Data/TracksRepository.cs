@@ -60,7 +60,7 @@ namespace Headway_Rhythm_Project_API.Data
 
         public async Task<List<Track>> GetTracks()
         {
-            return await _context.Tracks.Include(tg => tg.TrackGenres).ToListAsync();
+            return await _context.Tracks.ToListAsync();
         }
 
         public async Task<List<TrackGenres>> GetTrackGenresById(int trackId)
@@ -72,6 +72,15 @@ namespace Headway_Rhythm_Project_API.Data
                               select tg;
                               
             return await trackGenres.ToListAsync();
+        }
+        public async Task<List<int>> GetGenresById(int trackId)
+        {
+            var genres = from t in _context.Tracks
+                         join tg in _context.TrackGenres on t.TrackId equals tg.TrackId
+                         where tg.TrackId == trackId
+                         select tg.GenreId;
+                         
+            return await genres.ToListAsync();
         }
         public async Task<List<string>> GetTrackGenresByName(int trackId)
         {
