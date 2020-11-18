@@ -6,9 +6,9 @@ namespace Headway_Rhythm_Project_API.Models
     {
         public int PlaylistId { get; set; }
         public string PlaylistName { get; set; }
-        public virtual ICollection<PlaylistTrack> PlaylistTracks { get; set; }
+        public ICollection<PlaylistTrack> PlaylistTracks { get; set; }
         public int UserId { get; set; }
-        public virtual User User { get; set; }
-        public virtual ICollection<UserPlaylist> UserPlaylists { get; set; }
+        public User User { get; set; }
+        public ICollection<UserPlaylist> UserPlaylists { get; set; }
     }
 }

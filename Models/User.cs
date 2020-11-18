@@ -11,6 +11,6 @@ namespace Headway_Rhythm_Project_API.Models
         public string PublicId { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
-        public virtual ICollection<UserPlaylist> UserPlaylists { get; set; }
+        public ICollection<UserPlaylist> UserPlaylists { get; set; }
     }
 }
