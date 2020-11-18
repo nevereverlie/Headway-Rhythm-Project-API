@@ -18,6 +18,9 @@ using System.Reflection;
 using System.IO;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Headway_Rhythm_Project_API
 {
@@ -38,6 +41,7 @@ namespace Headway_Rhythm_Project_API
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
             services.AddScoped<IAppRepository, AppRepository>();
+            services.AddScoped<IPlaylistRepository, PlaylistRepository>();
             services.AddScoped<IGenresRepository, GenresRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -46,6 +50,17 @@ namespace Headway_Rhythm_Project_API
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(_config.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -88,6 +103,7 @@ namespace Headway_Rhythm_Project_API
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwagger();
