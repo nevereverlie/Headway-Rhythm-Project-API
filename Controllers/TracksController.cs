@@ -145,6 +145,23 @@ namespace Headway_Rhythm_Project_API.Controllers
             return BadRequest("Problem updating track...");
         }
 
+        [HttpDelete]
+        [Route("delete/{id:int}")]
+        public async Task<IActionResult> DeleteTrack(int id)
+        {
+            var trackToDelete = new Track
+            {
+                TrackId = id
+            };
+
+            _apprepo.Delete(trackToDelete);
+
+            if (await _apprepo.SaveAll())
+                return Ok("Track with id " + id + " deleted!");
+            
+            return BadRequest("Problem deleting this track...");
+        }
+
         [HttpGet]
         [Route("search/{searchString}")]
         public async Task<IActionResult> GetTracksBySearchString(string searchString)
