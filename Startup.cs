@@ -37,7 +37,7 @@ namespace Headway_Rhythm_Project_API
         {
             services.Configure<CloudinarySettings>(_config.GetSection("CloudinarySettings"));
             services.AddDbContext<DataContext>(options => {
-                options.UseLazyLoadingProxies().UseSqlite(_config.GetConnectionString("DefaultConnection"));
+                options.UseSqlite(_config.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<ITracksRepository, TracksRepository>();
             services.AddScoped<IAppRepository, AppRepository>();

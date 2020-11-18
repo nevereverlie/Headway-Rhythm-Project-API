@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
+using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Helpers;
 using Headway_Rhythm_Project_API.Interfaces;
 using Headway_Rhythm_Project_API.Models;
@@ -16,9 +18,12 @@ namespace Headway_Rhythm_Project_API.Data
     {
         private readonly DataContext _context;
         private Cloudinary _cloudinary;
-        public TracksRepository(DataContext context, IOptions<CloudinarySettings> cloudinaryConfig)
+        private readonly IMapper _mapper;
+        public TracksRepository(DataContext context, IOptions<CloudinarySettings> cloudinaryConfig,
+            IMapper mapper)
         {
              _context = context;
+             _mapper = mapper;
 
             Account acc = new Account(
                 cloudinaryConfig.Value.CloudName,
@@ -58,11 +63,23 @@ namespace Headway_Rhythm_Project_API.Data
             return await _context.Tracks.FirstOrDefaultAsync(t => t.TrackName == TrackName);
         }
 
-        public async Task<List<Track>> GetTracks()
+        public async Task<List<TrackForReturnDto>> GetTracks()
         {
-            return await _context.Tracks.ToListAsync();
+            var tracks = await _context.Tracks.ToListAsync();
+            List<TrackForReturnDto> tracksForReturn = new List<TrackForReturnDto>();
+            foreach(Track track in tracks)
+            {
+                var genresOfTrack = from g in _context.Genres
+                                    from tg in _context.TrackGenres
+                                    where tg.GenreId == g.GenreId && tg.TrackId == track.TrackId
+                                    select g;
+                TrackForReturnDto tempDto = _mapper.Map<TrackForReturnDto>(track);
+                tempDto.GenresOfTrack = genresOfTrack.ToList();
+                tracksForReturn.Add(tempDto);
+            }
+            return tracksForReturn;
         }
-
+        
         public async Task<List<TrackGenres>> GetTrackGenresById(int trackId)
         {
             var trackGenres = from t in _context.Tracks
