@@ -157,7 +157,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             _apprepo.Delete(trackToDelete);
 
             if (await _apprepo.SaveAll())
-                return Ok("Track with id " + id + " deleted!");
+                return Ok();
             
             return BadRequest("Problem deleting this track...");
         }

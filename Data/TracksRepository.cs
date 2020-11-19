@@ -56,11 +56,11 @@ namespace Headway_Rhythm_Project_API.Data
 
         public async Task<Track> GetTrackById(int TrackId)
         {
-            return await _context.Tracks.FirstOrDefaultAsync(t => t.TrackId == TrackId);
+            return await _context.Tracks.Include(t => t.TrackGenres).FirstOrDefaultAsync(t => t.TrackId == TrackId);
         }
         public async Task<Track> GetTrackByName(string TrackName)
         {
-            return await _context.Tracks.FirstOrDefaultAsync(t => t.TrackName == TrackName);
+            return await _context.Tracks.Include(t => t.TrackGenres).FirstOrDefaultAsync(t => t.TrackName == TrackName);
         }
 
         public async Task<List<TrackForReturnDto>> GetTracks()
