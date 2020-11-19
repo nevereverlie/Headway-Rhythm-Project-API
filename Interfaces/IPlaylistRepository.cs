@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Models;
 
 namespace Headway_Rhythm_Project_API.Interfaces
@@ -11,6 +12,6 @@ namespace Headway_Rhythm_Project_API.Interfaces
         Task<List<Track>> GetTracksOfPlaylist(int playlistId);
         Task<List<CommonPlaylist>> GetCommonPlaylists();
         Task<CommonPlaylist> GetCommonPlaylist(int id);
-        Task<List<Track>> GetCommonPlaylistTracks(int id);
+        Task<List<TrackForReturnDto>> GetCommonPlaylistTracks(int id);
     }
 }

@@ -92,7 +92,6 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(tracksOfPlaylist);
         }
-        [Authorize]
         [HttpGet]
         [Route("get-common-playlists")]
         public async Task<IActionResult> GetCommonPlaylists()
@@ -101,7 +100,6 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(commonPlaylists);
         }
-        [Authorize]
         [HttpGet]
         [Route("get-common-playlist/{cpId:int}")]
         public async Task<IActionResult> GetCommonPlaylist(int cpId)
@@ -110,7 +108,6 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(commonPlaylist);
         }
-        [Authorize]
         [HttpGet]
         [Route("get-common-playlist-tracks/{cpId:int}")]
         public async Task<IActionResult> GetCommonPlaylistTracks(int cpId)
@@ -120,7 +117,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             return Ok(tracks);
         }
 
-        [Authorize]
         [HttpPost]
         [Route("create-common-playlist")]
         public async Task<IActionResult> CreateCommonPlaylist([FromBody]CommonPlaylist commonPlaylist)
@@ -133,7 +129,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             return BadRequest("Problem creating common playlist...");
         }
 
-        [Authorize]
         [HttpPost]
         [Route("add-track-to-common-playlist")]
         public async Task<IActionResult> AddTrackToCommonPlaylist([FromBody]CommonPlaylistTrack commonPlaylistTrack)
@@ -146,7 +141,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             return BadRequest("Problem adding track to common playlist...");
         }
 
-        [Authorize]
         [HttpPut]
         [Route("update-common-playlist/{cpId:int}")]
         public async Task<IActionResult> UpdateCommonPlaylist(int cpId, [FromBody]CommonPlaylist commonPlaylist)
@@ -164,7 +158,6 @@ namespace Headway_Rhythm_Project_API.Controllers
             return BadRequest("Problem updating common playlist...");
         }
 
-        [Authorize]
         [HttpDelete]
         [Route("delete-common-playlist/{cpId:int}")]
         public async Task<IActionResult> DeleteCommonPlaylist(int cpId)

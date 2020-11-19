@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Headway_Rhythm_Project_API.Dtos;
 using Headway_Rhythm_Project_API.Interfaces;
 using Headway_Rhythm_Project_API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +12,10 @@ namespace Headway_Rhythm_Project_API.Data
     public class PlaylistRepository : IPlaylistRepository
     {
         private readonly DataContext _context;
-        public PlaylistRepository(DataContext context)
+        private readonly IMapper _mapper;
+        public PlaylistRepository(DataContext context, IMapper mapper)
         {
+            _mapper = mapper;
             _context = context;
         }
         public async Task<List<Playlist>> GetPlaylistsOfUser(int id)
@@ -47,14 +51,25 @@ namespace Headway_Rhythm_Project_API.Data
             return await _context.CommonPlaylists.SingleOrDefaultAsync(cp => cp.CommonPlaylistId == id);
         }
 
-        public async Task<List<Track>> GetCommonPlaylistTracks(int id)
+        public async Task<List<TrackForReturnDto>> GetCommonPlaylistTracks(int id)
         {
-            var cpTracks = from t in _context.Tracks
-                           join cpt in _context.CommonPlaylistTracks on t.TrackId equals cpt.TrackId
-                           where cpt.CommonPlaylistId == id
-                           select t;
+            var cpTracks = await (from t in _context.Tracks
+                                  join cpt in _context.CommonPlaylistTracks on t.TrackId equals cpt.TrackId
+                                  where cpt.CommonPlaylistId == id
+                                  select t).ToListAsync();
+            List<TrackForReturnDto> tracksForReturn = new List<TrackForReturnDto>();
+            foreach (Track track in cpTracks)
+            {
+                var genresOfTrack = from g in _context.Genres
+                                    from tg in _context.TrackGenres
+                                    where tg.GenreId == g.GenreId && tg.TrackId == track.TrackId
+                                    select g;
+                TrackForReturnDto tempDto = _mapper.Map<TrackForReturnDto>(track);
+                tempDto.GenresOfTrack = genresOfTrack.ToList();
+                tracksForReturn.Add(tempDto);
+            }
+            return tracksForReturn;
 
-            return await cpTracks.ToListAsync();
         }
     }
 }
