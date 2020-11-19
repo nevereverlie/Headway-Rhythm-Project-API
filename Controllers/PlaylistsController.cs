@@ -124,7 +124,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             _apprepo.Add(commonPlaylist);
 
             if (await _apprepo.SaveAll())
-                return Ok("Common playlist '" + commonPlaylist.CommonPlaylistName + "' created!");
+                return Ok(commonPlaylist);
             
             return BadRequest("Problem creating common playlist...");
         }
@@ -167,7 +167,7 @@ namespace Headway_Rhythm_Project_API.Controllers
             _apprepo.Delete(cpToDelete);
 
             if (await _apprepo.SaveAll())
-                return Ok("Common playlist with ID " + cpId + " deleted!");
+                return Ok(200);
             
             return BadRequest("Problem deleting common playlist...");
         }
