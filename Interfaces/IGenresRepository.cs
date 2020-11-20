@@ -10,5 +10,7 @@ namespace Headway_Rhythm_Project_API.Interfaces
         Task<Genre> GetGenreById(int genreId);
         Task<List<TrackGenres>> GetTrackGenres(string[] genreNames, int trackId);
         Task<List<int>> GetGenresIds(string[] newGenres);
+        Task<Genre> GetGenreOfTheDay();
+        Task<Genre> UpdateGenreOfTheDay(int id);
     }
 }
