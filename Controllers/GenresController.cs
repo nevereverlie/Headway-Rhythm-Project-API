@@ -82,5 +82,22 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return BadRequest("Problem updating selected genre");
         }
+        [HttpGet]
+        [Route("get-genre-of-the-day")]
+        public async Task<IActionResult> GetGenreOfTheDay()
+        {
+            var genreOfTheDay = await _repo.GetGenreOfTheDay();
+            if(genreOfTheDay != null)
+            {
+                return Ok(genreOfTheDay);
+            } 
+            return BadRequest("There is no Genre of the day");
+        }
+        [HttpPut]
+        [Route("update-genre-of-the-day/{genreId}")]
+        public async Task<IActionResult> UpdateGenreOfTheDay(int genreId)
+        {
+            return Ok(await _repo.UpdateGenreOfTheDay(genreId));
+        }
     }
 }

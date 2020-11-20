@@ -21,6 +21,11 @@ namespace Headway_Rhythm_Project_API.Data
             return await _context.Genres.FirstOrDefaultAsync(g => g.GenreId == genreId);
         }
 
+        public async Task<Genre> GetGenreOfTheDay()
+        {
+            return await _context.Genres.FirstOrDefaultAsync(g => g.IsGenreOfTheDay == true);
+        }
+
         public async Task<List<Genre>> GetGenres()
         {
             return await _context.Genres.ToListAsync();
@@ -54,6 +59,20 @@ namespace Headway_Rhythm_Project_API.Data
             }
 
             return trackGenres;
+        }
+
+        public async Task<Genre> UpdateGenreOfTheDay(int id)
+        {
+            var genres = await _context.Genres.ToListAsync();
+            foreach(Genre g in genres)
+            {
+                if(g.GenreId == id)
+                    g.IsGenreOfTheDay = true;
+                else
+                    g.IsGenreOfTheDay = false;
+            }
+            await _context.SaveChangesAsync();
+            return await _context.Genres.FirstOrDefaultAsync(g => g.IsGenreOfTheDay == true);
         }
     }
 }

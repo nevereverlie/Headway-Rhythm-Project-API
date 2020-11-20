@@ -7,6 +7,7 @@ namespace Headway_Rhythm_Project_API.Models
     {
         public int GenreId { get; set; }
         public string GenreName { get; set; }
+        public bool IsGenreOfTheDay { get; set; }
         public ICollection<TrackGenres> TrackGenres { get; set; }
     }
 }
