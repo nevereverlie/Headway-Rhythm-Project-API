@@ -92,6 +92,20 @@ namespace Headway_Rhythm_Project_API.Controllers
 
             return Ok(tracksOfPlaylist);
         }
+        [Authorize]
+        [HttpPost]
+        [Route("delete-track-from-playlist/{userId}")]
+        public async Task<IActionResult> DeleteTrackFromPlaylist(int userId, [FromBody]PlaylistTrack playlistTrackToDelete)
+        {
+            if(userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                return Unauthorized();
+
+             _apprepo.Delete(playlistTrackToDelete);
+            if (await _apprepo.SaveAll()){
+                return Ok(playlistTrackToDelete);
+            }
+            return BadRequest("Problem deleting track from playlist");
+        }
         [HttpGet]
         [Route("get-common-playlists")]
         public async Task<IActionResult> GetCommonPlaylists()
