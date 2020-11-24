@@ -31,14 +31,27 @@ namespace Headway_Rhythm_Project_API.Data
             return playlist;
         }
 
-        public async Task<List<Track>> GetTracksOfPlaylist(int playlistId)
+        public async Task<List<TrackForReturnDto>> GetTracksOfPlaylist(int playlistId)
         {
             var tracksOfPlaylist =
                 from t in _context.Tracks
                 join pt in _context.PlaylistTracks on t.TrackId equals pt.TrackId
                 where pt.PlaylistId == playlistId
                 select t;
-            return await tracksOfPlaylist.ToListAsync();
+
+            List<TrackForReturnDto> tracksForReturn = new List<TrackForReturnDto>();
+            foreach(Track track in tracksOfPlaylist)
+            {
+                var genresOfTrack = from g in _context.Genres
+                                    from tg in _context.TrackGenres
+                                    where tg.GenreId == g.GenreId && tg.TrackId == track.TrackId
+                                    select g;
+                TrackForReturnDto tempDto = _mapper.Map<TrackForReturnDto>(track);
+                tempDto.GenresOfTrack = await genresOfTrack.ToListAsync();
+                tracksForReturn.Add(tempDto);
+            }
+            // return await tracksOfPlaylist.ToListAsync();
+            return tracksForReturn;
         }
 
         public async Task<List<CommonPlaylist>> GetCommonPlaylists()
