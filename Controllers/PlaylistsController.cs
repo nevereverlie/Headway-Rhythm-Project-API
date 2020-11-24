@@ -144,9 +144,14 @@ namespace Headway_Rhythm_Project_API.Controllers
         }
 
         [HttpPost]
-        [Route("add-track-to-common-playlist")]
-        public async Task<IActionResult> AddTrackToCommonPlaylist([FromBody]CommonPlaylistTrack commonPlaylistTrack)
+        [Route("add-track-to-common-playlist/{cpId:int}")]
+        public async Task<IActionResult> AddTrackToCommonPlaylist(int cpId, [FromBody]int trackId)
         {
+            CommonPlaylistTrack commonPlaylistTrack = new CommonPlaylistTrack
+            {
+                CommonPlaylistId = cpId,
+                TrackId = trackId
+            };
             _apprepo.Add(commonPlaylistTrack);
 
             if (await _apprepo.SaveAll())
